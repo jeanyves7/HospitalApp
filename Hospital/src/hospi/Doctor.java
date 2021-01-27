@@ -1,5 +1,9 @@
 package hospi;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 public class Doctor extends Person implements Hospital {
 	private int ID;
 	private String Spec;
@@ -17,6 +21,23 @@ public class Doctor extends Person implements Hospital {
 		System.out.println("Specialisation: "+Spec);
 	}
 
+	@Override
+	public void insert(Connection myCon)throws ClassNotFoundException, SQLException{
+		String query="INSERT INTO HOSP(ID,Name,Age,Date,Time,Special,Type)" +
+										"Values(?,?,?,?,?,?,?)";
+		PreparedStatement prepared=myCon.prepareStatement(query);
+		
+		prepared.setInt(1, this.getID());
+		prepared.setString(2, this.getName());
+		prepared.setString(3,this.getAge());
+		prepared.setString(4, null);
+		prepared.setString(5, null);
+		prepared.setString(6, this.Spec);
+		prepared.setString(7,"Doctor");
+		
+		prepared.execute();
+	}
+	
 	public int getID() {
 		return ID;
 	}

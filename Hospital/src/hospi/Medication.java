@@ -1,9 +1,54 @@
 package hospi;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 public class Medication {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	public static void main(String[] args) throws SQLException, ClassNotFoundException {
+
+
+		//Establishing connection with mysql via localhost  port number:3306 to the database schema demo and checking the timing zone 
+
+		//PLEASE NOTE THAT: database name: Hospital  // User: root // Password : admin
+		//Feel free to chose the database name of your choice
+		//If you need to modify any of these parameters:
+		String database_name="Hospital";
+		String User="root";
+		String Password="admin";
+
+		//this string serve to check time of the sql and java console application 
+		String check_time="?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+
+		Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/"+check_time,User,Password);
+		Statement myStmt=connection.createStatement();
+
+		//Create the database if it doesn't exists
+		myStmt.execute("CREATE DATABASE IF NOT EXISTS "+ database_name );
+		//use the chosen database
+		myStmt.execute("USE "+ database_name);
+
+
+		//Drop the tables if they exists
+		String if_exists_Hosp="DROP TABLE IF EXISTS HOSP";
+		myStmt.executeUpdate(if_exists_Hosp);
+
+		//creating the new  Hospital table
+		String CREATE_TABLE_HOSP="CREATE TABLE HOSP("+
+				"ID INT NOT NULL,"+
+				"Name VARCHAR(1000),"+
+				"Age Varchar(10),"+
+				"Date Varchar(100),"+
+				"Time Varchar(100),"+
+				"Special Varchar(1000),"+
+				"Type Varchar(1000),"+
+				"PRIMARY KEY (ID))";
+		myStmt.executeUpdate(CREATE_TABLE_HOSP);
+
+
 		Person[] p=new Person[10];
 		p[0]=new Patient("Miled Massoud","20",1," 8/1/2021","10:00");
 		p[1]=new SurgeryP("joy chahoud","21",2,"10/1/2021","11:15","leg surgery");
@@ -15,14 +60,90 @@ public class Medication {
 		p[7]=new Doctor("Michelle Slem","30",8,"Nerve");
 		p[8]=new Patient("Mario Aoun","19",9,"25/1/2021","00:00");
 		p[9]=new Patient("Jack Chirak","45",10,"26/1/2021","14:30");
+
+		
 		
 		for(int i=0;i<p.length;++i) {
 			p[i].prtPerson();
+			
 			System.out.println("////////////////");
+			p[i].insert(connection);
 		}
-				
-		
+		p[0].setAge("99");
+		p[1].setName("Marco Polo");
 
+		String[] types=new String[7];
+		types[0]="Patient";
+		types[1]="SurgeryP";
+		types[2]="TreatmentP";
+		types[3]="Doctor";
+		types[4]="Nurse";
+		types[5]="NightShift";
+		types[6]="DayShift";
+		
+		
+		System.out.println("Displaying now the array by type from the dataBase");
+		
+		ResultSet myRs;
+		for(int i=0;i<types.length;++i) {
+			 myRs=myStmt.executeQuery("SELECT * FROM HOSP WHERE TYPE='"+types[i]+"'");
+			 display(myRs,types[i]);
+			
+		}
+		
+		
 	}
+	
+	//method to display the contents regarding their types
+    public static void display (ResultSet myRs,String type)throws ClassNotFoundException, SQLException { 
+    	System.out.println("Type: "+type);
+    	System.out.println("///////\\\\\\\\");
+    	while(myRs.next()) {
+    		System.out.println("ID: "+myRs.getInt("ID"));
+    		System.out.println("Name: "+myRs.getString("Name"));
+    		System.out.println("Age: "+myRs.getString("Age"));
+    		switch (myRs.getString("Type")) {
+    		case "Patient":
+    			System.out.println("Date: "+myRs.getString("Date"));
+    			System.out.println("Time: "+myRs.getString("Time"));
+    			break;
+    		case "SurgeryP":
+    			System.out.println("Date: "+myRs.getString("Date"));
+    			System.out.println("Time: "+myRs.getString("Time"));
+    			System.out.println("Surgery Type: "+myRs.getString("Special"));
+    			break;
+    		case "TreatmentP":
+    			System.out.println("Date: "+myRs.getString("Date"));
+    			System.out.println("Time: "+myRs.getString("Time"));
+    			System.out.println("Treatement Type: "+myRs.getString("Special"));
+    			break;
+    		case "Doctor":
+    			System.out.println("Spec: "+myRs.getString("Special"));
+    			break;
+    		case "Nurse":
+    			System.out.println("Department: "+myRs.getString("Special"));
+    			break;
+    		case "NightShift":
+    			System.out.println("Shift: "+myRs.getString("Date"));
+    			System.out.println("Time: "+myRs.getString("Time"));
+    			System.out.println("Department: "+myRs.getString("Special"));
+    			break;
+    		case "DayShift":
+    			System.out.println("Date: "+myRs.getString("Date"));
+    			System.out.println("Time: "+myRs.getString("Time"));
+    			System.out.println("Department: "+myRs.getString("Special"));
+    			
+    		}
+    		System.out.println("||||||||||||||");
+    	}
+		
+    }
+			
+			
+			
+			
+			
+			
+			
 
 }

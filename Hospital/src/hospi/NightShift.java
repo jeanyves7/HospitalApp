@@ -1,5 +1,9 @@
 package hospi;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 public class NightShift extends Nurse implements Hospital {
 
 	private String Shift;
@@ -17,6 +21,25 @@ public class NightShift extends Nurse implements Hospital {
 		System.out.println("Shift: "+Shift);
 		System.out.println("Time: "+Time);
 	}
+	
+
+	@Override
+	public void insert(Connection myCon)throws ClassNotFoundException, SQLException{
+		String query="INSERT INTO HOSP(ID,Name,Age,Date,Time,Special,Type)" +
+										"Values(?,?,?,?,?,?,?)";
+		PreparedStatement prepared=myCon.prepareStatement(query);
+		
+		prepared.setInt(1, this.getID());
+		prepared.setString(2, this.getName());
+		prepared.setString(3,this.getAge());
+		prepared.setString(4, this.Shift);
+		prepared.setString(5, this.Time);
+		prepared.setString(6, this.getDepartment());
+		prepared.setString(7,"NightShift");
+		
+		prepared.execute();
+	}
+	
 	
 	public String getShift() {
 		return Shift;
