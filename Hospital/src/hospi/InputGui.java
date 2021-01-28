@@ -128,6 +128,7 @@ public class InputGui extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle("JTextComponent Demo");
 		setSize(350, 350);
+		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 }

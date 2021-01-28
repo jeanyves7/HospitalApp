@@ -28,22 +28,22 @@ public class DisplayGui extends JFrame {
 		}
 
 		while(myRs.next()) {
-			pending+=("ID: "+myRs.getInt("ID"))+" ";
-			pending+=("Name: "+myRs.getString("Name"))+" ";
-			pending+=("Age: "+myRs.getString("Age"))+" ";
+			pending+=("ID: "+myRs.getInt("ID"))+", ";
+			pending+=("Name: "+myRs.getString("Name"))+", ";
+			pending+=("Age: "+myRs.getString("Age"))+", ";
 			switch (myRs.getString("Type")) {
 			case "Patient":
-				pending+=("Date: "+myRs.getString("Date"))+" ";
+				pending+=("Date: "+myRs.getString("Date"))+", ";
 				pending+=("Time: "+myRs.getString("Time"))+" ";
 				break;
 			case "SurgeryP":
-				pending+=("Date: "+myRs.getString("Date"))+" ";
-				pending+=("Time: "+myRs.getString("Time"))+" ";
+				pending+=("Date: "+myRs.getString("Date"))+", ";
+				pending+=("Time: "+myRs.getString("Time"))+", ";
 				pending+=("Surgery Type: "+myRs.getString("Special"))+" ";
 				break;
 			case "TreatmentP":
-				pending+=("Date: "+myRs.getString("Date"))+" ";
-				pending+=("Time: "+myRs.getString("Time"))+" ";
+				pending+=("Date: "+myRs.getString("Date"))+", ";
+				pending+=("Time: "+myRs.getString("Time"))+", ";
 				pending+=("Treatement Type: "+myRs.getString("Special"))+" ";
 				break;
 			case "Doctor":
@@ -53,13 +53,13 @@ public class DisplayGui extends JFrame {
 				pending+=("Department: "+myRs.getString("Special"))+" ";
 				break;
 			case "NightShift":
-				pending+=("Shift: "+myRs.getString("Date"));
-				pending+=("Time: "+myRs.getString("Time"));
+				pending+=("Shift: "+myRs.getString("Date"))+", ";
+				pending+=("Time: "+myRs.getString("Time"))+", ";
 				pending+=("Department: "+myRs.getString("Special"));
 				break;
 			case "DayShift":
-				pending+=("Date: "+myRs.getString("Date"))+" ";
-				pending+=("Time: "+myRs.getString("Time"))+" ";
+				pending+=("Date: "+myRs.getString("Date"))+", ";
+				pending+=("Time: "+myRs.getString("Time"))+", ";
 				pending+=("Department: "+myRs.getString("Special"))+" ";
 
 			}
@@ -82,6 +82,7 @@ public class DisplayGui extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle("JTextComponent Demo");
 		setSize(350, 350);
+		setLocationRelativeTo(null);
 		setVisible(true);
 
 
