@@ -19,11 +19,14 @@ public class Medication {
 		String database_name="Hospital";
 		String User="root";
 		String Password="admin";
+		ConnectionD connect=new ConnectionD(database_name,User,Password);
 
 		//this string serve to check time of the sql and java console application 
 		String check_time="?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 
-		Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/"+check_time,User,Password);
+		
+		
+		Connection connection=connect.getConnection();
 		Statement myStmt=connection.createStatement();
 
 		//Create the database if it doesn't exists
@@ -61,7 +64,8 @@ public class Medication {
 		p[8]=new Patient("Mario Aoun","19",9,"25/1/2021","00:00");
 		p[9]=new Patient("Jack Chirak","45",10,"26/1/2021","14:30");
 
-		
+		p[0].setAge("99");
+		p[1].setName("Marco Polo");
 		
 		for(int i=0;i<p.length;++i) {
 			p[i].prtPerson();
@@ -69,8 +73,7 @@ public class Medication {
 			System.out.println("////////////////");
 			p[i].insert(connection);
 		}
-		p[0].setAge("99");
-		p[1].setName("Marco Polo");
+		
 
 		String[] types=new String[7];
 		types[0]="Patient";
@@ -83,19 +86,14 @@ public class Medication {
 		
 		
 		System.out.println("Displaying now the array by type from the dataBase");
-		
-		ResultSet myRs;
 		for(int i=0;i<types.length;++i) {
-			 myRs=myStmt.executeQuery("SELECT * FROM HOSP WHERE TYPE='"+types[i]+"'");
-			 display(myRs,types[i]);
-			
+			 display(myStmt,types[i]);
 		}
-		
-		
 	}
 	
 	//method to display the contents regarding their types
-    public static void display (ResultSet myRs,String type)throws ClassNotFoundException, SQLException { 
+    public static void display (Statement myStmt,String type)throws ClassNotFoundException, SQLException { 
+    	ResultSet myRs=myStmt.executeQuery("SELECT * FROM HOSP WHERE TYPE='"+type+"'");
     	System.out.println("Type: "+type);
     	System.out.println("///////\\\\\\\\");
     	while(myRs.next()) {
