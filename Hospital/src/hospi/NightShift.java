@@ -22,7 +22,7 @@ public class NightShift extends Nurse implements Hospital {
 		System.out.println("Time: "+Time);
 	}
 	
-
+	//method to insert to data into the database
 	@Override
 	public void insert(Connection myCon)throws ClassNotFoundException, SQLException{
 		String query="INSERT INTO HOSP(ID,Name,Age,Date,Time,Special,Type)" +

@@ -15,6 +15,7 @@ public class DayShift extends Nurse implements Hospital {
 	}
 	
 	
+	//method to insert to data into the database
 	@Override
 	public void insert(Connection myCon)throws ClassNotFoundException, SQLException{
 		String query="INSERT INTO HOSP(ID,Name,Age,Date,Time,Special,Type)" +
@@ -32,9 +33,12 @@ public class DayShift extends Nurse implements Hospital {
 		prepared.execute();
 	}
 	
+	//we override this method from person to print the specific requirements
 	@Override
 	public void prtPerson() {
+		//printing the basic of a person
 		super.prtPerson();
+		//addinfg the special fields
 		System.out.println("Date: "+Date);
 		System.out.println("Time: "+Time);
 	}

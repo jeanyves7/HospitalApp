@@ -133,15 +133,6 @@ public class Medication {
     			
     		}
     		System.out.println("||||||||||||||");
-    	}
-		
+    	}	
     }
-			
-			
-			
-			
-			
-			
-			
-
 }

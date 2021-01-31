@@ -14,13 +14,14 @@ public class Doctor extends Person implements Hospital {
 		this.Spec=Spec;
 	}
 	
+	
 	@Override
 	public void prtPerson() {
 		super.prtPerson();
 		System.out.println("ID: "+ID);
 		System.out.println("Specialisation: "+Spec);
 	}
-
+	//method to insert to data into the database
 	@Override
 	public void insert(Connection myCon)throws ClassNotFoundException, SQLException{
 		String query="INSERT INTO HOSP(ID,Name,Age,Date,Time,Special,Type)" +

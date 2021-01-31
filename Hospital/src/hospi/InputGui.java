@@ -11,14 +11,14 @@ import javax.swing.*;
 @SuppressWarnings("serial")
 public class InputGui extends JFrame {
 	// Private variables of the GUI components
-	JTextField NField;
-	JTextField AField;
-	JTextField IField;
-	JTextField DField;
-	JTextField TField;
-	JTextField VField;
+	JTextField NField; //name
+	JTextField AField; //age
+	JTextField IField; // id
+	JTextField DField; // date
+	JTextField TField; // time
+	JTextField VField; // the special value of a type
 	JTextArea tArea;
-	Person p;
+	Person p; // a person so we can save it
 	JFormattedTextField formattedField;
 
 
@@ -26,6 +26,7 @@ public class InputGui extends JFrame {
 	 * @throws SQLException */
 	public InputGui(String v) throws SQLException {
 		
+		//getting the connection to the database
 		ConnectionD connect=new ConnectionD("Hospital","root","admin");
 		Connection connection=connect.getConnection();
 		Statement myStmt=connection.createStatement();
@@ -73,6 +74,7 @@ public class InputGui extends JFrame {
 			tfPanel.add(VField);
 		}
 
+		//a button to handle the insertion to the database
 		JButton btn = new JButton("ADD");
 		btn.addActionListener(new ActionListener() {
 
@@ -109,6 +111,7 @@ public class InputGui extends JFrame {
 					}
 					VField.setText("");
 				}
+				//when we click on add we want to reset the fields to empty
 				NField.setText("");
 				AField.setText("");
 				IField.setText("");
@@ -125,10 +128,10 @@ public class InputGui extends JFrame {
 		cp.add(tfPanel, BorderLayout.NORTH);
 		cp.add(btn,BorderLayout.CENTER);
 
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setTitle("JTextComponent Demo");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // dispose on close means that we only want to close this specific frame and not all of them
+		setTitle("Add Patient");
 		setSize(350, 350);
-		setLocationRelativeTo(null);
+		setLocationRelativeTo(null); // to center the frame in the center of the screen
 		setVisible(true);
 	}
 }

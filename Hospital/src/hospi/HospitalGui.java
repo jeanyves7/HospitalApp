@@ -6,15 +6,15 @@ import java.sql.SQLException;
 
 import javax.swing.*;
 
+@SuppressWarnings("serial")
 public class HospitalGui extends JFrame {
 
 	JLabel display;
-	int count = 0;
 
 	/** Constructor to setup the GUI */
 	public HospitalGui() {
-		// A menu-bar contains menus. A menu contains menu-items (or sub-Menu)
-		JMenuBar menuBar;   // the menu-bar
+		// A menu-bar contains menus. A menu contains menu-items 
+		JMenuBar menuBar;   //  menu-bar
 		JMenu menu;         // each menu in the menu-bar
 		JMenuItem menuItem; // an item in a menu
 
@@ -71,6 +71,8 @@ public class HospitalGui extends JFrame {
 		menu.setMnemonic(KeyEvent.VK_B);  // short-cut key
 		menuBar.add(menu);  // the menu bar adds this menu
 
+		// we are now adding the items to the display menu
+		
 		menuItem = new JMenuItem("All", KeyEvent.VK_A);
 		menu.add(menuItem); // the menu adds this item
 		menuItem.addActionListener(new ActionListener() {
@@ -186,13 +188,14 @@ public class HospitalGui extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Hospital  App");
 		setSize(300, 100);
-		setLocationRelativeTo(null);
+		setLocationRelativeTo(null); // when we run it, the position of the frame in the center
 		setVisible(true);
 	}
 
 	/** The entry main() method */
 	public static void main(String[] args) {
-		// Run the GUI codes on the event-dispatching thread for thread safety
+		// we run the GUI on  event-dispatching thread for thread safety
+		// GUI using swing and  awt
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {

@@ -20,7 +20,7 @@ public class SurgeryP  extends Patient implements Hospital {
 		System.out.println("Surgery Type: "+this.SurgeryType);
 	}
 	
-	
+	//method to insert to data into the database
 	@Override
 	public void insert(Connection myCon)throws ClassNotFoundException, SQLException{
 		String query="INSERT INTO HOSP(ID,Name,Age,Date,Time,Special,Type)" +

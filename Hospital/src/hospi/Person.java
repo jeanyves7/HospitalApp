@@ -17,10 +17,8 @@ public class Person {
 			System.out.println("age: "+age);
 		}
 		
-		
-		public void insert(Connection myCon)throws ClassNotFoundException, SQLException{
-			
-		}
+		//method to insert to data into the database
+		public void insert(Connection myCon)throws ClassNotFoundException, SQLException{}
 		
 		public String getName() {
 			return name;
